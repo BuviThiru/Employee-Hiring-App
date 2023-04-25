@@ -21,7 +21,7 @@ exports.getAllMembers = async(req,res)=>{
 
 exports.deleteMember =async(req,res)=>{
     try{
-        console.log(req.params.role,req.params.id)
+      
         let response = await deleteMemberSer(req.params.role,req.params.id)
         if(response.error || !response){
             return res.status(401).send({

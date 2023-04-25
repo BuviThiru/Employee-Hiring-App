@@ -23,7 +23,7 @@ exports.getAllMembersSer = async(role)=>{
 
 exports.deleteMemberSer = async(role,id)=>{
     try{
-        console.log("inservice")
+      
         let response = {} 
         const deleteFun = function (err, docs) {
             if (err){
@@ -38,7 +38,7 @@ exports.deleteMemberSer = async(role,id)=>{
     else if(role=="company")  {deletedUsers = await Company.findOneAndDelete({_id:id},deleteFun(err,data));}
     else if(role=="admin")  {deletedUsers = await Admin.findOneAndDelete({_id:id},deleteFun(err,data));}
     else response.error = "Category not found"
-    console.log("??????????????????????",deletedUsers)
+   
     if(!deletedUsers){
         response.error = "List not found"
     }else {

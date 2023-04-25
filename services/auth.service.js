@@ -18,7 +18,7 @@ exports.verifytoken = (tokenSent)=>{
 exports.getUserByEmail= async(emailData)=>{
     try{
         const user = await Student.findOne({email:emailData}) ||  await Admin.findOne({email:emailData}) ||  await Company.findOne({email:emailData})
-        console.log("USER",user)
+     
         return user
     }catch(err){
         return err.message

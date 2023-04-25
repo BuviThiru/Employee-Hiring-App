@@ -10,7 +10,7 @@ exports.isAuthenticated = async(req,res,next)=>{
         message : "Token invalid"
     })
    const user = await getUserByEmail(verifiedToken.email)
-//    console.log(user)
+
    if(!user){
     return res.status(401).send({
         message: "email is invalid"
@@ -21,7 +21,7 @@ next();
 }
 
 exports.isAdmin = async(req,res,next) =>{
-    console.log("isAdmin")
+  
     if(!req.user) {
         return res.status(401).send({Message:"User not found"})
     }
