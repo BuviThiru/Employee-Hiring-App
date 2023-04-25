@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcryptjs")
 
 const companySchema = new mongoose.Schema({
      CompanyName:{
@@ -10,13 +10,12 @@ ContactPersonName:  {
     type : String,
     required : true,
  },
- companyEmail:{
+ email:{
     type : String,
     unique : true,
     required : true,
     match:/\S+@\S+\.\S+/
-},
-	
+},	
 contactPersonEmail : {
     type : String,
     unique : true,
@@ -73,5 +72,9 @@ updatedAt :{
 }
 	
 })
-
+companySchema.pre("save", function(next){
+    let hashedPassword = bcrypt.hashSync(this.password,5);
+    this.password = hashedPassword;
+    next();
+})
 module.exports = mongoose.model("Company",companySchema)

@@ -1,5 +1,7 @@
  const mongoose = require('mongoose');
- const Jobs = require('./Job..model');
+ const Jobs = require('./Job.model');
+ const bcrypt = require("bcryptjs")
+
 
  const studentSchema = new  mongoose.Schema({
     name : {
@@ -10,17 +12,22 @@
         type : [String],
         
     },
-    eMail : {
+    role:{
+        type:String,
+        required: true,
+        default : "student",
+    },
+    email : {
         type : String,
         unique : true,
         required : true,
         match:/\S+@\S+\.\S+/
     },
-    phone:{
+    phoneNum:{
         type : String,
         minLength  : 5,
         maxLength : 10,
-        required: true,
+        required :true,
     },
     skills : {
         type : [String],
@@ -53,5 +60,10 @@
         default: Date.now,
     }
  }) 
+studentSchema.pre("save",function(next){
+    let hashedPassword = bcrypt.hashSync(this.password,5);
+    this.password = hashedPassword;
+    next();
+})
 
-module.exports = mongoose.Model("Student", studentSchema)
+module.exports = mongoose.model("Student",studentSchema)

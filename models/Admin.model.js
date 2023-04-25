@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs")
 
 const adminSchema  = new mongoose.Schema({
     name : {
       type: String,
       required : true
     },
-    eMail : {
+    email : {
         type: String,
         required : true,
         unique : true,
@@ -21,12 +22,13 @@ const adminSchema  = new mongoose.Schema({
     phoneNum : {
         type:String,
         required:true,
-        unique :true
+        unique :true,
+        required:true,
         },
     status :{
-        type :Enum,
-        default : Active,
-        Enums: [Active,Suspended,Blocked]
+        type :String,
+        default : "Active",
+        Enum: ["Active","Suspended","Blocked"]
     },
     role:{
         type : String
@@ -40,5 +42,10 @@ const adminSchema  = new mongoose.Schema({
         default : Date.now()
     }
 })
+adminSchema.pre("save",function(next){
+    let hashedPassword = bcrypt.hashSync(this.password,5);
+    this.password = hashedPassword;
+    next()
+})
+module.exports = mongoose.model("Admin",adminSchema)
 
-module.exports = mongoose.Model("Admin", adminSchema)

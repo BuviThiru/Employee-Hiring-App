@@ -40,4 +40,4 @@ updatedAt :{
 }
 })
 
-module.exports = mongoose.Model("Job",jobSchema)
+module.exports = mongoose.model("Job",jobSchema)
