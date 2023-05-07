@@ -8,7 +8,6 @@ try{
     if(user.role!= "company"){
       response.error = "User doesn't have required permissions"
     }
-    console.log(data)
     let newJob= {
       title: data.title,     
       category: data.category,
