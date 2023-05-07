@@ -28,8 +28,7 @@ exports.signupCompany = async (role,data) => {
 };
 
 exports.signupStudent = async (role,data) => {
-    console.log("STUDEN",data)
-    try{
+     try{
       let newUSer = {
         name : data.name,    
         courses: data.courses,
